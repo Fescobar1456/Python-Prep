@@ -1,11 +1,17 @@
 class Utilidades:
-    def __init__(self, lista):
-        self.lista = lista
+    def __init__(self, awayList):
+        if (type(awayList) != list):
+            self.myList = []
+            raise ValueError('Se ha creado una lista vacia, por favor ingresar un valor de tipo lista.')
+        else:
+            self.myList = awayList
 
     #--------------------------------------------------
     def listPrimo(self):
-        for value in self.lista:
-            print(self.__Primo(value))
+        primoList = []
+        for value in self.myList:
+            primoList.append(self.__Primo(value))
+        return primoList
 
     def __Primo(self, num):
         if num < 2:
@@ -16,10 +22,10 @@ class Utilidades:
                     return False
             return True
     
-    #---------------------------------------------------- 
+    #----------------------------------------------------
     def listRepetidos(self):
-        print(self.__Repetidos(self.lista))
-        
+        return self.__Repetidos(self.myList)
+
     def __Repetidos(self, lista):
         dictNum = {}
         #Aqui se almacenan cuantas veces se repiten los valores.
@@ -42,9 +48,22 @@ class Utilidades:
         return moda, maximo
     
     #--------------------------------------------------------------
-    def listConversorTemperatura(self):
-        for value in self.lista:
-            print(f'{value} de Celsius a Kelvin -> {self.__ConversorTemperatura(value, 'Celsius', 'Kelvin')}')
+    def listConversorTemperatura(self, origen, destino):
+        valorEsperado = ['Celsius', 'Fahrenheit', 'Kelvin']
+        listConversion = []
+        if str(origen) not in valorEsperado and str(destino) not in valorEsperado:
+            print(f'Origen y Destino ingresado invalido, se esperaba {valorEsperado}')
+            return listConversion
+        elif str(origen) not in valorEsperado:
+            print(f'Origen ingresado invalido, se esperaba {valorEsperado}')
+            return listConversion
+        elif str(destino) not in valorEsperado:
+            print(f'Destino ingresado invalido, se esperaba {valorEsperado}')
+            return listConversion
+        else:
+            for value in self.myList:
+                listConversion.append([value, self.__ConversorTemperatura(value, origen, destino)])
+            return listConversion
 
     def __ConversorTemperatura(self, valor, origen, destino):
         temp = 0
@@ -75,13 +94,15 @@ class Utilidades:
     
     #-------------------------------------------------------
     def listFactorial(self):
-        for value in self.lista:
-            print(f'{value}! -> {self.__Factorial(value)}')
+        factorialList = []
+        for value in self.myList:
+            factorialList.append(self.__Factorial(value))
+        return factorialList
 
     def __Factorial(self, num):
         if type(num) == int:
             if num < 0:
-                return 'El número debe ser positivo.'
+                return None #El número debe ser positivo.
             else:
                 if num == 0:
                     return 1
@@ -89,4 +110,4 @@ class Utilidades:
                     num *= self.__Factorial(num - 1)
             return num
         else:
-            return 'El valor ingresado debe ser de tipo entero.'
+            return None #El valor ingresado debe ser de tipo entero.
