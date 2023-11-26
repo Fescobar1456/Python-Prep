@@ -1,4 +1,4 @@
-class Utilidades:
+class Herramientas:
     def __init__(self, awayList):
         if (type(awayList) != list):
             self.myList = []
